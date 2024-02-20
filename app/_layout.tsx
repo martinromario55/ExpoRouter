@@ -1,42 +1,40 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
-import { Stack } from 'expo-router'
-import { router } from 'expo-router'
+import { Drawer } from 'expo-router/drawer'
+import { AntDesign, Entypo } from '@expo/vector-icons'
+import CustomDrawerContent from '../components/customDrawerContent'
 
 export default function _layout() {
   return (
-    <Stack
+    <Drawer
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#2f95dc',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
+        drawerLabelStyle: { marginLeft: -20 },
+        // drawerActiveBackgroundColor: 'gray',
+        // drawerActiveTintColor: 'white',
+        // drawerInactiveTintColor: 'white',
       }}
+      drawerContent={CustomDrawerContent}
     >
-      <Stack.Screen name="index" options={{ title: 'Home' }}></Stack.Screen>
-      <Stack.Screen
-        name="register/index"
+      <Drawer.Screen
+        name="home"
         options={{
-          title: 'Register',
-          headerRight: () => (
-            <Button title="Login" onPress={() => router.push('/login')} />
+          title: 'Home',
+          drawerLabel: 'Home',
+          drawerIcon: ({ size, color }) => (
+            <Entypo name="home" size={size} color={color} />
           ),
         }}
-      ></Stack.Screen>
-      <Stack.Screen
-        name="login"
-        options={{ title: 'Login Modal' }}
-      ></Stack.Screen>
-
-      <Stack.Screen
-        name="(tabs)"
-        options={{ title: 'tabs', headerShown: false }}
-      ></Stack.Screen>
-
-      <Stack.Screen name="[missing]" options={{ title: '404' }}></Stack.Screen>
-    </Stack>
+      />
+      <Drawer.Screen
+        name="index"
+        options={{
+          title: 'About',
+          drawerLabel: 'About',
+          drawerIcon: ({ size, color }) => (
+            <AntDesign name="infocirlce" size={size} color={color} />
+          ),
+        }}
+      />
+    </Drawer>
   )
 }
